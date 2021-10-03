@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import jdk.jfr.Timestamp;
-
 public class MatrixTest {
 
     @Test
@@ -40,5 +38,21 @@ public class MatrixTest {
         double[][] res = b.getMatrix();
         assertArrayEquals(expectedRes, res);
 
+    }
+
+    @Test
+    public void testTimesException() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
+
+            @Override
+            public void execute() throws Throwable {
+                double[][] valsA = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } };
+                double[][] valsB = { { 1. }, { 1. }, { 1. }, { 1. } };
+
+                Matrix A = new Matrix(valsA);
+                Matrix x = new Matrix(valsB);
+                Matrix b = A.times(x);
+            }
+        });
     }
 }
