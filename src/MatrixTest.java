@@ -12,6 +12,12 @@ public class MatrixTest {
         Matrix A = new Matrix(vals);
         assertEquals(vals, A.getArray());
     }
+	@Test
+	public void Matrix() {
+		double[][] vals = {{2.0}, {2.0}, {2.0}};
+		Matrix B = new Matrix(3, 1, 2.0);
+		assertArrayEquals(vals, B.getArray());
+	}	
 
     @Test
     public void test2dContructorException() {
