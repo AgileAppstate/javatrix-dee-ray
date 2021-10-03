@@ -10,7 +10,7 @@ public class MatrixTest {
     public void test2dContructor() {
         double[][] vals = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } };
         Matrix A = new Matrix(vals);
-        assertEquals(vals, A.getMatrix());
+        assertEquals(vals, A.getArray());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class MatrixTest {
         Matrix A = new Matrix(valsA);
         Matrix x = new Matrix(valsB);
         Matrix b = A.times(x);
-        double[][] res = b.getMatrix();
+        double[][] res = b.getArray();
         assertArrayEquals(expectedRes, res);
 
     }

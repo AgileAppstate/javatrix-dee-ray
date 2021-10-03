@@ -1,6 +1,11 @@
 public class Matrix {
     double[][] A;
 
+    /*
+     * Construct a matrix from a 2-D array.
+     * 
+     * Parameters: A - Two-dimensional array of doubles.
+     */
     public Matrix(double[][] A) {
         int rowLength = A[0].length;
         for (int i = 1; i < A.length; i++) {
@@ -12,12 +17,22 @@ public class Matrix {
         this.A = A;
     }
 
-    public double[][] getMatrix() {
+    /*
+     * Access the internal two-dimensional array.
+     * 
+     * Returns: Pointer to the two-dimensional array of matrix elements.
+     */
+    public double[][] getArray() {
         return this.A;
     }
 
+    /*
+     * Linear algebraic matrix multiplication, A * B
+     * 
+     * Parameters: B - another matrix Returns: Matrix product, A * B
+     */
     public Matrix times(Matrix B) {
-        double[][] bArr = B.getMatrix();
+        double[][] bArr = B.getArray();
         if (A[0].length != bArr.length) {
             throw new IllegalArgumentException("Matrix inner dimensions must agree.");
         }
