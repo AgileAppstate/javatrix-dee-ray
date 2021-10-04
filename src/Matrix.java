@@ -12,6 +12,8 @@ public class Matrix {
 	 * Parameters: A - Two-dimensional array of doubles.
 	 */
 	public Matrix(double[][] A) {
+		this.m = A.length; //set m & n
+		this.n = A[0].length;
 		int rowLength = A[0].length;
 		for (int i = 1; i < A.length; i++) {
 			if (rowLength != A[i].length) {
@@ -70,4 +72,26 @@ public class Matrix {
 		}
 		return new Matrix(res);
 	}
+	
+	/*
+	 * Print method
+	 *
+	 * Parameters: w - number of items we want to print
+	 * d - "d" number of decimal places
+	 */ 	
+	public void print(int w, int d) {
+		int count = 0; // only printing items we want ("w"), instead of all items
+		String format = "%." + d + "f "; // print each column to "d" number of decimal places
+		for (int row = 0; row < this.m; row++) {
+			for (int col = 0; col < this.n; col++) {
+				if (count <= w) {
+					System.out.printf(format, this.A[row][col]); // desired print formatting
+					count++;
+				} else {
+					break;
+				}
+			}
+			System.out.println();
+		}
+	}	
 }

@@ -3,6 +3,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 public class MatrixTest {
 
@@ -61,4 +63,23 @@ public class MatrixTest {
             }
         });
     }
+
+	@Test
+	public void printTest() {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // reading console output
+		PrintStream output = System.out; // reading console output
+		
+		double[][] vals = { {6.0}, {6.0}, {6.0} }; 
+		Matrix A = new Matrix(vals);
+		String right = "6.0 \n6.0 \n6.0 \n"; // expected result
+
+		System.setOut(new PrintStream(baos)); 
+
+		A.print(3, 1); // 3 items, 1 decimal place
+
+		System.out.flush();
+		String test = baos.toString();
+		System.setOut(output);
+		assertEquals(right, test);
+	}		
 }
