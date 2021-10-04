@@ -12,8 +12,6 @@ public class Matrix {
 	 * Parameters: A - Two-dimensional array of doubles.
 	 */
 	public Matrix(double[][] A) {
-		this.m = A.length; //set m & n
-		this.n = A[0].length;
 		int rowLength = A[0].length;
 		for (int i = 1; i < A.length; i++) {
 			if (rowLength != A[i].length) {
@@ -21,6 +19,10 @@ public class Matrix {
 
 			}
 		}
+		// setting m & n
+		this.m = A.length;
+		this.n = A[0].length;
+
 		this.A = A;
 	}
 
