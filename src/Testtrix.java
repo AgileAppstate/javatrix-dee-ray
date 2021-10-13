@@ -11,7 +11,7 @@ public class Testtrix {
         this.A = new Matrix(valsA);
         this.B = new Matrix(3, 1, 1.);
         is_running = true;
-        menu_items = new String[] { "Print", "Multiply", "exit" };
+        menu_items = new String[] { "Print", "Print Submatrix", "Multiply", "exit" };
     }
 
     public static void main(String[] args) {
@@ -53,10 +53,32 @@ public class Testtrix {
                 B.print(9, 1);
             }
         } else if (next.equals("2")) {
+            System.out.println("Enter initial row index \n");
+            user_input = new Scanner(System.in);
+            int i0 = Integer.parseInt(user_input.next());
+            System.out.println("Enter final row index \n");
+            user_input = new Scanner(System.in);
+            int i1 = Integer.parseInt(user_input.next());
+            System.out.println("Enter initial column index \n");
+            user_input = new Scanner(System.in);
+            int j0 = Integer.parseInt(user_input.next());
+            System.out.println("Enter final column index \n");
+            user_input = new Scanner(System.in);
+            int j1 = Integer.parseInt(user_input.next());
+            System.out.println("Choose an array to print from \n");
+            menu_show(options);
+            user_input = new Scanner(System.in);
+            next = user_input.next();
+            if (next.equals("1")) {
+                A.getMatrix(i0, i1, j0, j1).print(9, 1);
+            } else {
+                B.getMatrix(i0, i1, j0, j1).print(9, 1);
+            }
+        } else if (next.equals("3")) {
             System.out.println("Matrix A multiplied by Matrix B is equal to:");
             Matrix c = this.A.times(this.B);
             c.print(9, 1);
-        } else if (next.equals("3")) {
+        } else if (next.equals("4")) {
             System.out.println("program ended");
             is_running = false;
         }
