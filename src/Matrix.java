@@ -75,6 +75,22 @@ public class Matrix {
 		return new Matrix(arr);
 	}
 
+	public void setMatrix(int i0, int i1, int j0, int j1, Matrix X) {
+		if (i1 + 1 > m || j1 + 1 > n) {
+			throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+		}
+		double[][] matrix = X.getArray();
+		int row = 0, col;
+		for (int i = i0; i <= i1; i++) {
+			col = 0;
+			for (int j = j0; j <= j1; j++) {
+				this.A[i][j] = matrix[row][col];
+				col++;
+			}
+			row++;
+		}
+	}
+
 	/*
 	 * Linear algebraic matrix multiplication, A * B
 	 * 
