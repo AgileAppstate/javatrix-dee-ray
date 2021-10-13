@@ -14,12 +14,13 @@ public class MatrixTest {
         Matrix A = new Matrix(vals);
         assertEquals(vals, A.getArray());
     }
-	@Test
-	public void Matrix() {
-		double[][] vals = {{2.0}, {2.0}, {2.0}};
-		Matrix B = new Matrix(3, 1, 2.0);
-		assertArrayEquals(vals, B.getArray());
-	}	
+
+    @Test
+    public void Matrix() {
+        double[][] vals = { { 2.0 }, { 2.0 }, { 2.0 } };
+        Matrix B = new Matrix(3, 1, 2.0);
+        assertArrayEquals(vals, B.getArray());
+    }
 
     @Test
     public void test2dContructorException() {
@@ -64,22 +65,69 @@ public class MatrixTest {
         });
     }
 
-	@Test
-	public void printTest() {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // reading console output
-		PrintStream output = System.out; // reading console output
-		
-		double[][] vals = { {6.0}, {6.0}, {6.0} }; 
-		Matrix A = new Matrix(vals);
-		String right = "6.0 \n6.0 \n6.0 \n"; // expected result
+    @Test
+    public void testGetMatrix() {
+        double[][] vals = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } };
+        double[][] subVals = { { 1. }, { 4. } };
+        Matrix A = new Matrix(vals);
+        Matrix B = A.getMatrix(0, 1, 0, 0);
+        assertArrayEquals(subVals, B.getArray());
+    }
 
-		System.setOut(new PrintStream(baos)); 
+    @Test
+    public void testSetMatrix() {
+        double[][] vals = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } }, subVals = { { 10. }, { 24. } };
+        double[][] correctVals = { { 10., 2., 3 }, { 24., 5., 6. }, { 7., 8., 9. } };
+        Matrix A = new Matrix(vals);
+        A.setMatrix(0, 1, 0, 0, new Matrix(subVals));
+        assertArrayEquals(correctVals, A.getArray());
+    }
 
-		A.print(3, 1); // 3 items, 1 decimal place
+    @Test
+    public void testSetMatrixException() {
+        assertThrows(ArrayIndexOutOfBoundsException.class, new Executable() {
 
-		System.out.flush();
-		String test = baos.toString();
-		System.setOut(output);
-		assertEquals(right, test);
-	}		
+            @Override
+            public void execute() throws Throwable {
+                double[][] vals = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } }, subVals = { { 10. }, { 24. } };
+                Matrix A = new Matrix(vals);
+                A.setMatrix(0, 3, 0, 0, new Matrix(subVals));
+            }
+        });
+
+    }
+
+    @Test
+    public void testGetMatrixException() {
+        assertThrows(ArrayIndexOutOfBoundsException.class, new Executable() {
+
+            @Override
+            public void execute() throws Throwable {
+                double[][] vals = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } };
+                double[][] subVals = { { 1. }, { 4. } };
+                Matrix A = new Matrix(vals);
+                Matrix B = A.getMatrix(0, 3, 0, 0);
+            }
+        });
+
+    }
+
+    @Test
+    public void printTest() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // reading console output
+        PrintStream output = System.out; // reading console output
+
+        double[][] vals = { { 6.0 }, { 6.0 }, { 6.0 } };
+        Matrix A = new Matrix(vals);
+        String right = "6.0 \n6.0 \n6.0 \n"; // expected result
+
+        System.setOut(new PrintStream(baos));
+
+        A.print(3, 1); // 3 items, 1 decimal place
+
+        System.out.flush();
+        String test = baos.toString();
+        System.setOut(output);
+        assertEquals(right, test);
+    }
 }
