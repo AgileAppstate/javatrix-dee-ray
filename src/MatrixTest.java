@@ -75,6 +75,29 @@ public class MatrixTest {
     }
 
     @Test
+    public void testSetMatrix() {
+        double[][] vals = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } }, subVals = { { 10. }, { 24. } };
+        double[][] correctVals = { { 10., 2., 3 }, { 24., 5., 6. }, { 7., 8., 9. } };
+        Matrix A = new Matrix(vals);
+        A.setMatrix(0, 1, 0, 0, new Matrix(subVals));
+        assertArrayEquals(correctVals, A.getArray());
+    }
+
+    @Test
+    public void testSetMatrixException() {
+        assertThrows(ArrayIndexOutOfBoundsException.class, new Executable() {
+
+            @Override
+            public void execute() throws Throwable {
+                double[][] vals = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } }, subVals = { { 10. }, { 24. } };
+                Matrix A = new Matrix(vals);
+                A.setMatrix(0, 3, 0, 0, new Matrix(subVals));
+            }
+        });
+
+    }
+
+    @Test
     public void testGetMatrixException() {
         assertThrows(ArrayIndexOutOfBoundsException.class, new Executable() {
 
