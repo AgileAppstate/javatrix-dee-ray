@@ -1,7 +1,5 @@
 public class Matrix {
 
-		//Changed our double values to private to encapsulate our data fields to avoid unwanted tampering.	
-
 		private double[][] A; 
 		private int m;	
 		private int n;	
@@ -43,7 +41,8 @@ public class Matrix {
 						}
 				}
 		}
-		/*
+
+  /*
 		 *  Construct matrix fast w/o checking args
 		 *
 		 *
@@ -53,18 +52,32 @@ public class Matrix {
 				this.m = m;
 				this.n = n;
 		}
+  
 		/*
 		 * Construct an m by n matrix of zeros.
 		 *  
 		 * 
 		 */
 		public Matrix(int m, int n) {
-
 				this.m = m;
 				this.n = n;
 				A = new double[m][n];
 
+	/*
+	 * Construct a m x n constant matrix.
+	 *
+	 * Parameter m: # of rows Parameter n: # of cols Parameter d: constant double
+	 */
+	public Matrix(int m, int n, double d) {
+		this.m = m;
+		this.n = n;
+		this.A = new double[m][n];
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				A[i][j] = d;
+			}
 		}
+    
 		/*
 		 * Construct a matrix from 1D array
 		 * 
@@ -86,14 +99,70 @@ public class Matrix {
 						}
 				}
 		}
-		/*
-		 * Access the internal two-dimensional array.
-		 * 
-		 * Returns: Pointer to the two-dimensional array of matrix elements.
-		 */
-		public double[][] getArray() {
-				return this.A;
+    
+   /*
+	 * Access the internal two-dimensional array.
+	 * 
+	 * Returns: Pointer to the two-dimensional array of matrix elements.
+	 */
+	public double[][] getArray() {
+		return this.A;
+	}
+
+	/*
+	 * Get a submatrix.
+	 * 
+	 * Parameters: i0 - Initial row index i1 - Final row index j0 - Initial column
+	 * index j1 - Final column index
+	 * 
+	 * Returns: A(i0:i1,j0:j1)
+	 */
+    
+	public Matrix getMatrix(int i0, int i1, int j0, int j1) {
+		if (i1 + 1 > m || j1 + 1 > n) {
+			throw new ArrayIndexOutOfBoundsException("Submatrix indices");
 		}
+		double[][] arr = new double[i1 + 1][j1 + 1];
+		double[][] matrix = getArray();
+		int row = 0, col;
+		for (int i = i0; i <= i1; i++) {
+			col = 0;
+			for (int j = j0; j <= j1; j++) {
+				arr[row][col] = matrix[i][j];
+				col++;
+			}
+			row++;
+		}
+		return new Matrix(arr);
+	}
+
+	public void setMatrix(int i0, int i1, int j0, int j1, Matrix X) {
+		if (i1 + 1 > m || j1 + 1 > n) {
+			throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+		}
+		double[][] matrix = X.getArray();
+		int row = 0, col;
+		for (int i = i0; i <= i1; i++) {
+			col = 0;
+			for (int j = j0; j <= j1; j++) {
+				this.A[i][j] = matrix[row][col];
+				col++;
+			}
+			row++;
+		}
+	}
+
+	/*
+	 * Linear algebraic matrix multiplication, A * B
+	 * 
+	 * Parameters: B - another matrix Returns: Matrix product, A * B
+	 */
+	public Matrix times(Matrix B) {
+		double[][] bArr = B.getArray();
+		if (A[0].length != bArr.length) {
+			throw new IllegalArgumentException("Matrix inner dimensions must agree.");
+		}
+  }
 
 		/*
 		 * Linear algebraic matrix multiplication, A * B
@@ -135,8 +204,7 @@ public class Matrix {
 								}
 						}
 						System.out.println();
-				}
-		}
+
 		/* 
 		 *	Transpose method
 		 *
@@ -153,4 +221,6 @@ public class Matrix {
 				return new Matrix(x);
 
 		}	
+	}
+
 }
