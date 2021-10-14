@@ -11,7 +11,7 @@ public class Testtrix {
         this.A = new Matrix(valsA);
         this.B = new Matrix(3, 1, 1.);
         is_running = true;
-        menu_items = new String[] { "Print", "Print Submatrix", "Multiply", "exit" };
+        menu_items = new String[] { "Print", "Print Submatrix", "Multiply", "transpose", "exit" };
     }
 
     public static void main(String[] args) {
@@ -79,6 +79,16 @@ public class Testtrix {
             Matrix c = this.A.times(this.B);
             c.print(9, 1);
         } else if (next.equals("4")) {
+            System.out.println("Choose an array to transpose \n");
+            menu_show(options);
+            user_input = new Scanner(System.in);
+            next = user_input.next();
+            if (next.equals("1")) {
+                A.transpose().print(9, 1);
+            } else {
+                B.transpose().print(9, 1);
+            }
+        } else if (next.equals("5")) {
             System.out.println("program ended");
             is_running = false;
         }

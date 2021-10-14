@@ -125,17 +125,17 @@ public class MatrixTest {
 
         A.print(3, 1); // 3 items, 1 decimal place
 
-		System.out.flush();
-		String test = baos.toString();
-		System.setOut(output);
-		assertEquals(right, test);
-	}		
-	@Test
-	public void transposeTest () {
-	   
-		double[][] valsA = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } };
-        double[][] expectedRes = { {1.,4.,7.}, {2.,5.,8.}, {3.,6.,9.}};
-		
+        System.out.flush();
+        String test = baos.toString();
+        System.setOut(output);
+        assertEquals(right, test);
+    }
+
+    @Test
+    public void transposeTest() {
+
+        double[][] valsA = { { 1., 2., 3 }, { 4., 5., 6. }, { 7., 8., 9. } };
+        double[][] expectedRes = { { 1., 4., 7. }, { 2., 5., 8. }, { 3., 6., 9. } };
 
         Matrix A = new Matrix(valsA);
         Matrix b = A.transpose();
@@ -143,39 +143,35 @@ public class MatrixTest {
         assertArrayEquals(expectedRes, res);
 
     }
-	@Test
-	public void noArgMatrixTest () {
-		try {
-			Matrix test = new Matrix(new double[][] {{1.,2.,3.},{4,5,6}}, 1, 2);
-		}
-		catch (Exception e) {
-			assertEquals("Error generated, unchecked constructor", e);
-		}
-	}		
-	@Test
-	public void zeroMatrixTest () {
 
-	double[][] A = {{0., 0., 0.}, {0., 0., 0.}};
-	Matrix l = new Matrix (2,3);
-	double[][] res = l.getArray();
-	assertArrayEquals(A, res);	
+    @Test
+    public void noArgMatrixTest() {
+        try {
+            Matrix test = new Matrix(new double[][] { { 1., 2., 3. }, { 4, 5, 6 } }, 1, 2);
+        } catch (Exception e) {
+            assertEquals("Error generated, unchecked constructor", e);
+        }
+    }
 
-	}
-	@Test
-	public void oneDimArrMatrixTest () {
-	
-	double[] A = {1.0, 2.0, 3.0};
-	int m = 3;
-	double[][] B = {{1.}, {2.}, {3.}};
-	Matrix k = new Matrix (A, m);
-	double[][] res = k.getArray();
-	assertArrayEquals(B, res);
-	
-		
-	}
-        System.out.flush();
-        String test = baos.toString();
-        System.setOut(output);
-        assertEquals(right, test);
+    @Test
+    public void zeroMatrixTest() {
+
+        double[][] A = { { 0., 0., 0. }, { 0., 0., 0. } };
+        Matrix l = new Matrix(2, 3);
+        double[][] res = l.getArray();
+        assertArrayEquals(A, res);
+
+    }
+
+    @Test
+    public void oneDimArrMatrixTest() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // reading console output
+        PrintStream output = System.out;
+        double[] A = { 1.0, 2.0, 3.0 };
+        int m = 3;
+        double[][] B = { { 1. }, { 2. }, { 3. } };
+        Matrix k = new Matrix(A, m);
+        double[][] res = k.getArray();
+        assertArrayEquals(B, res);
     }
 }
